@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 import { EditArticlesComponent } from './editArticles.component';
 import { EditArticleService } from '../../services/editArticles.service';
-import { getArticleEffects,updateArticleEffects } from '../../store/effects';
+import { getArticleEffects,redirectAfterUpdateEffect,updateArticleEffects } from '../../store/effects';
 import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
 import {
@@ -15,7 +15,7 @@ export const routes: Route[] = [
     component: EditArticlesComponent,
     providers: [
       EditArticleService,
-      provideEffects(getArticleEffects,updateArticleEffects),
+      provideEffects(getArticleEffects,updateArticleEffects,{redirectAfterUpdateEffect}),
       provideState(editArticleFeatureKey, editArticleReducer),
     ],
   },

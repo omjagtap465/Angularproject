@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PopularTagType } from '../../types/popularTag.type';
 import { CommonModule } from '@angular/common';
 
@@ -7,8 +7,10 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './tag-list.component.html',
-  styleUrl: './tag-list.component.css'
 })
-export class TagListComponent {
+export class TagListComponent implements OnInit{
 @Input() tags:PopularTagType[] =[]
+ngOnInit(): void {
+  
+}
 }

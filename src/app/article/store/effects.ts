@@ -36,10 +36,13 @@ export class DeleteArticleEffects {
     this.actions$.pipe(
       ofType(articleActions.deleteArticle), // Use the correct action type
       switchMap(({ slug }) =>
-        this.deletearticleService.deleteArticle(slug).pipe(
+       {  
+        console.log(slug);
+        
+        return this.deletearticleService.deleteArticle(slug).pipe(
           map(() => articleActions.deleteArticleSuccess()),
           catchError(() => of(articleActions.deleteArticleFailure()))
-        )
+        )}
       )
     )
   );

@@ -4,6 +4,7 @@ import { RegisterRequestInterface } from '../types/registerrequest.interface';
 import { CurrentUserInterface } from 'src/app/shared/types/currentUser.interface';
 import { BackendErrorsInterface } from 'src/app/shared/types/backendErrors.interface';
 import { LoginRequestInterface } from '../types/loginRequest.interface';
+import { CurrentUserRequestInterface } from 'src/app/shared/components/articleForm/types/currentUser.interface';
 export const authActions = createActionGroup({
   source: 'auth',
   events: {
@@ -16,5 +17,13 @@ export const authActions = createActionGroup({
     'Get Current User': emptyProps(),
     'Get Current User Success': props<{ currentUser: CurrentUserInterface }>(),
     'Get Current User Failure': emptyProps(),
+    'Update  User': props<{
+      currentUserRequest: CurrentUserRequestInterface;
+    }>(),
+    'Update  User Success': props<{
+      currentUser: CurrentUserInterface;
+    }>(),
+    'Update  User Failure': props<{ errors: BackendErrorsInterface }>(),
+    Logout: emptyProps(),
   },
 });

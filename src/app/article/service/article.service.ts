@@ -10,6 +10,8 @@ export class ArticleService {
 
   constructor(private http:HttpClient) { }
   deleteArticle(slug:string):Observable<{}>{
+    console.log('Deltete Article',slug);
+    
     const fullUrl =   `${environment.apiUrl}/articles/${slug}`
     return this.http.delete(fullUrl)
 }

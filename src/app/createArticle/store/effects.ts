@@ -36,7 +36,7 @@ export class createArticleEffects {
     private createArticleService: CreateArticleService
   ) {}
 }
-export const redirectAfterDeleteEffect = createEffect(
+export const redirectAfterCreateEffect = createEffect(
   (actions$ = inject(Actions), router = inject(Router)) => {
     return actions$.pipe(
       ofType(createArticleActions.getCreateArticleSuccess),

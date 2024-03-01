@@ -5,10 +5,11 @@ export interface ArticleInterface{
     body:string
     createdAt:string
     description:string
-    favourited:boolean
+    favorited:boolean
     slug:string
     tagList:PopularTagType[]
     title:string
     updatedAt:string
-    author:ProfileInterface
+    author:ProfileInterface,
+    favoritesCount:number
 }

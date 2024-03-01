@@ -12,16 +12,23 @@ const streamFeature = createFeature({
   name: 'stream',
   reducer: createReducer(
     initialState,
-    on(streamActions.getStream, (state) => ({ ...state, isLoading:true })),
-    on(streamActions.getStreamSuccess, (state,action) => ({ ...state, isLoading:false,data:action.stream })),
-    on(streamActions.getStreamFailure, (state) => ({ ...state,   isLoading: false, })),
-    on(routerNavigatedAction,() => initialState)
-    ),
+    on(streamActions.getStream, (state) => ({ ...state, isLoading: true })),
+    on(streamActions.getStreamSuccess, (state, action) => ({
+      ...state,
+      isLoading: false,
+      data: action.stream,
+    })),
+    on(streamActions.getStreamFailure, (state) => ({
+      ...state,
+      isLoading: false,
+    })),
+    on(routerNavigatedAction, () => initialState)
+  ),
 });
 export const {
-    name:streamFeatureKey,
-    reducer:streamReducer,
-    selectIsLoading,
-    selectError,
-    selectData:selectStreamData
-} = streamFeature
+  name: streamFeatureKey,
+  reducer: streamReducer,
+  selectIsLoading,
+  selectError,
+  selectData: selectStreamData,
+} = streamFeature;

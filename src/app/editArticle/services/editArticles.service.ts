@@ -11,7 +11,7 @@ export class EditArticleService {
   constructor(private http: HttpClient) {}
   updateArticle(slug:string,articleReq: ArticleRequestInterface): Observable<ArticleInterface> {
     console.log('Requesting to create article:', articleReq);
-    const fullUrl = "https://api.realworld.io/api" + `/articles${slug}`;
+    const fullUrl = "https://api.realworld.io/api" + `/articles/${slug}`;
     return this.http.put<ArticleResponseInterface>(fullUrl,articleReq).pipe(map((response) => response.article))
   }
   

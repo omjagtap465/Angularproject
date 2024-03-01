@@ -1,38 +1,37 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { popularTagsActions } from './action';
-import { popularTagsInterface } from '../types/popularTags.interface';
-
+import { PopularTagsStateInterface } from '../types/popularTagsState.interface';
+import { PopularTagsActions } from './action';
 import { routerNavigationAction } from '@ngrx/router-store';
 
-const initialState: popularTagsInterface = {
+const initialState: PopularTagsStateInterface = {
   isLoading: false,
   error: null,
   data: null,
 };
-
-const popularTagsFeature = createFeature({
-  name: 'popularTags',
+const popularFeature = createFeature({
+  name: 'popular tags',
   reducer: createReducer(
     initialState,
-    on(popularTagsActions.getPopularTags, (state) => ({
+    on(PopularTagsActions.getPopularTags, (state) => ({
       ...state,
       isLoading: true,
     })),
-    on(popularTagsActions.getPopularTagsSuccess, (state, action) => ({
+    on(PopularTagsActions.getPopularTagsSuccess, (state,actions) => ({
       ...state,
       isLoading: false,
-      data: action.popularTags,
+      data:actions.popularTags
     })),
-    on(popularTagsActions.getPopularTagsFailure, (state) => ({
+    on(PopularTagsActions.getPopularTagsFailure, (state) => ({
       ...state,
       isLoading: false,
-    }))
+    })),
+    on(routerNavigationAction, (state) => ({
+      ...state,
+    })),
   ),
 });
-export const {
-  name: popularTagsFeatureKey,
-  reducer: popularTagsReducer,
-  selectIsLoading,
-  selectError,
-  selectData: selectPopularTagData,
-}= popularTagsFeature;
+export const {name:PopularTagsFeatureKey,
+reducer:popularTagsReducer,
+selectIsLoading,
+selectError,
+selectData} =popularFeature

@@ -61,6 +61,25 @@ const authFeature = createFeature({
       ...state,
 
       validationErrors: null,
+    })),
+    on(authActions.updateUserSuccess, (state, action) => ({
+      ...state,
+      currentUser: action.currentUser,
+    })),
+    on(authActions.updateUserFailure, (state, actions) => ({
+      ...state,
+      validationErrors: actions.errors,
+    })),
+    // Cleaning every time the state so that  validation error is not there while going from sign Up to sign in example we have a error of validations so in the store the validation is updated
+    on(routerNavigationAction, (state) => ({
+      ...state,
+
+      validationErrors: null,
+    })),
+    on(authActions.logout, (state) => ({
+      ...state,
+      ...initialState,
+      currentUser: null,
     }))
   ),
 });

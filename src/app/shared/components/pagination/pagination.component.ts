@@ -19,10 +19,12 @@ pagesCount:number = 1
 pages:number[]=[]
 constructor(private utils:UtilsService){}
 ngOnInit():void{
+  
   console.log(this.limit);
-  console.log(this.total);
+  console.log(this.url,this.total);
   
 this.pagesCount=Math.ceil(this.total/this.limit)
+
 this.pages = this.pagesCount>0 ? this.utils.range(1,this.pagesCount):[]
 
   console.log('pagesCount',this.pages)

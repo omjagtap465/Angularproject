@@ -13,9 +13,11 @@ import * as streamEffects from'./app/shared/components/stream/store/effect'
 import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { authInterceptor } from './app/shared/services/authInterceptor';
 import { streamFeatureKey, streamReducer } from './app/shared/components/stream/store/reducer';
-import queryString from 'query-string';
-import { PopularTagsEffects } from './app/shared/components/populartags/store/effects';
-import { popularTagsFeatureKey, popularTagsReducer } from './app/shared/components/populartags/store/reducer';
+// import { PopularTagsEffects } from ./app/shared/components/populartags/store/effects';
+import * as PopularTagsEffects from './app/shared/components/populartags/store/effects'
+import * as addToFavoritesEffects from './app/shared/components/addToFavourites/add-to-favourites/store/effects'
+import { AddtoFavoritesService } from './app/shared/components/addToFavourites/service/addto-favorites.service';
+import { PopularTagsFeatureKey, popularTagsReducer } from './app/shared/components/populartags/store/reducer';
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouterStore(),
@@ -24,10 +26,10 @@ bootstrapApplication(AppComponent, {
     provideStore({
       router:routerReducer
     }),
-    provideEffects(authEffects,streamEffects,PopularTagsEffects),
-    provideState(popularTagsFeatureKey,popularTagsReducer),
+    provideEffects(PopularTagsEffects,authEffects,streamEffects,addToFavoritesEffects),
     provideState(authFeatureKey, authReducer),
     provideState(streamFeatureKey,streamReducer),
+    provideState(PopularTagsFeatureKey,popularTagsReducer),
     provideStoreDevtools({
         maxAge: 25,
         logOnly: !isDevMode(),
@@ -35,6 +37,7 @@ bootstrapApplication(AppComponent, {
         trace: false,
         traceLimit: 75,
     }),
+    AddtoFavoritesService,
     provideEffects()
 ],
 });

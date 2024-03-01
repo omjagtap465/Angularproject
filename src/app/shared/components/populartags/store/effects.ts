@@ -1,35 +1,26 @@
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { PopularService } from '../services/popularservice.service';
-import { popularTagsActions } from './action';
-import { PopularTagType } from '../types/popularTag.type';
-import { HttpErrorResponse } from '@angular/common/http';
-import { of } from 'rxjs';
+import { inject } from "@angular/core";
+import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { PopulartagsService } from "../populartags.service";
+import { PopularTagsActions } from "./action";
+import { catchError, map, of, switchMap, tap } from "rxjs";
+import { PopularTagType } from "src/app/shared/types/popularTag.type";
 
-@Injectable()
-export class PopularTagsEffects {
-
-  getPopularTags$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(popularTagsActions.getPopularTags),
-      switchMap(() =>
-        this.popularService.getPopularTags().pipe(
-          map((popularTags: PopularTagType[]) => {
-            console.log(popularTags);
-            
-            return popularTagsActions.getPopularTagsSuccess({ popularTags });
-          }),
-          catchError(() =>
-            of(popularTagsActions.getPopularTagsFailure())
-          )
-        )
-      )
-    )
+export const getPopularTagsEffect = createEffect(
+    (actions$ = inject(Actions), popularService = inject(PopulartagsService)) => {
+      return actions$.pipe(
+        ofType(PopularTagsActions.getPopularTags),
+        switchMap(() => {
+          return popularService.getPopularTags().pipe(
+            map((popularTags: PopularTagType[]) => {
+                
+              return PopularTagsActions.getPopularTagsSuccess({ popularTags });
+            }),
+            catchError(() => {
+              return of(PopularTagsActions.getPopularTagsFailure());
+            })
+          );
+        })
+      );
+    },{functional:true}
   );
-
-  constructor(
-    private actions$: Actions,
-    private popularService: PopularService
-  ) {}
-}
+  

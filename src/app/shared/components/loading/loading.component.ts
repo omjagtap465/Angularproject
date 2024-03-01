@@ -4,8 +4,7 @@ import { Component } from '@angular/core';
   selector: 'mc-loading',
   standalone: true,
   imports: [],
-  templateUrl: './loading.component.html',
-  styleUrl: './loading.component.css'
+  template: '<div>is Loading ...</div>',
 })
 export class LoadingComponent {
 

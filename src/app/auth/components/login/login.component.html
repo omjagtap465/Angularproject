@@ -5,9 +5,8 @@
                 <div class="col-md-6 offset-md-3 col-xs-12">
                     <h1 class="text-xs-center">Sign In</h1>
                     <p class="text-xs-center">
-                        <a routerLink="/register">Have an account?</a>
+                        <a routerLink="/register">Register Account</a>
                     </p>
-                    BACKEND ERRORS HERE
                     <mc-backend-error-messages *ngIf="data.backendError"
                         [backendError]="data.backendError"></mc-backend-error-messages>
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">

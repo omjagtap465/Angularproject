@@ -31,23 +31,22 @@ export class RegisterComponent {
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
-
   data$ = combineLatest({
-    isSubmitting: this.store.select(selectIsSubmitting),
     backendError: this.store.select(selectValidationErrors),
   });
+  isSubmitting = this.store.selectSignal(selectIsSubmitting);
   constructor(
     private fb: FormBuilder,
-    private store: Store<AuthStateInterface>,
-    private authService: AuthService
+    private store: Store<AuthStateInterface>
   ) {}
 
   onSubmit() {
-    console.log('form', this.form.getRawValue());
+    this.data$.subscribe((res) => console.log(res));
     const request: RegisterRequestInterface = {
       user: this.form.getRawValue(),
     };
+    console.log('form', this.form.getRawValue());
+
     this.store.dispatch(authActions.register({ request }));
-    this.authService.register(request).subscribe((res) => console.log(res));
   }
 }
