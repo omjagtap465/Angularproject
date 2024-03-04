@@ -1,0 +1,38 @@
+<div *ngIf="data$|async as data">
+    <div class="container" *ngIf="data.isLoading">...Loading </div>
+    <!-- <ng-container *ngIf="data.comment && data.comment.comment > 0 ">
+        <div *ngFor="let comment of data.comment">
+            <p>Author: {{ comment.author }}</p>
+            <p>Body: {{ comment.body }}</p>
+            <p>Created At: {{ comment.createdAt }}</p>
+        </div>
+    </ng-container> -->
+    <!-- <a [routerLink]="['/profiles', =comment.id]">
+                <img [src]="article.author.image" />
+            </a> -->
+    <!-- <div class="info">
+                <a [routerLink]="['/profiles', article.author.username]">
+                    {{ article.author.username }}
+                </a>
+                <span class="date">{{ article.createdAt }}</span>
+            </div>
+            <div class="pull-xs-right">
+                <mc-add-to-favourites [isFavourited]="article.favorited" [articleSlug]="article.slug"
+                    [favouritedCount]="article.favoritesCount"></mc-add-to-favourites>
+            </div>
+        </div>
+        <a [routerLink]="['/articles', article.slug]" class="preview-link">
+            <h1>{{ article.title }}</h1>
+            <p>{{ article.description }}</p>
+            <span>Read more...</span>
+            <mc-tag-list [tags]="article.tagList"></mc-tag-list>
+        </a>
+    </div>  -->
+    <ng-container class="comment">
+        <form class="container " [formGroup]="form" (ngSubmit)="onSubmit()">
+            <textarea placeholder="Write Comment Inside" id="" cols="30" rows="10" formControlName="body"></textarea>
+            <button type="submit" class="btn btn-lg btn-primary" [disabled]="data.isSubmitting">Post Comment
+            </button>
+        </form>
+    </ng-container>
+</div>
