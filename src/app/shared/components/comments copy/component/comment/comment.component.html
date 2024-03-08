@@ -1,0 +1,41 @@
+
+<!-- <ng-container *ngIf="comments$|async as comments">
+<ul *ngIf="comments.length;else empty" class="comment-list">
+    
+    <li *ngFor="let comment of comments">
+        <div class="comment-author">
+            <span>{{ comment|json }}</span>
+        </div>
+    </li>
+  
+</ul>
+</ng-container> -->
+<!-- <ng-template *ngFor="let comment of commentArray">
+    
+    <div>{{comment.author}}</div>
+</ng-template> -->
+<ng-container *ngIf="data$| async as data ">
+    <mc-loading *ngIf ="data.isLoading"></mc-loading>
+    <div *ngIf="data.comment">
+        <div *ngFor="let comment of data.comment.comments">
+            <div>{{comment.author.image}}</div>
+        <div>{{data.isSubmitting}}</div>
+        <div>{{comment.body}}</div>
+        <div>{{comment.createdAt}}</div>
+        <button class="btn btn-lg pull-xs-right btn-primary" (click)="deleteComment(comment.id)" type="button" [disabled]="data.isSubmitting">
+        Delete
+        </button>
+        <div>{{comment.updatedAt}}</div>
+        <div>{{comment.id}}</div>
+    </div>
+    </div>
+
+</ng-container>
+    <ng-container class="comment">
+        <form class="container " [formGroup]="form" (ngSubmit)="onSubmit()">
+            <textarea placeholder="Write Comment Inside" id="" cols="30" rows="10" formControlName="body"></textarea>
+            <button type="submit" class="btn btn-lg btn-primary" [disabled]="">Post Comment
+            </button>
+           
+        </form>
+  

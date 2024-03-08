@@ -8,36 +8,58 @@ import { isDevMode } from '@angular/core';
 import { authFeatureKey, authReducer } from './app/auth/store/reducer';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideEffects } from '@ngrx/effects';
-import * as authEffects from './app/auth/store/effect'
-import * as streamEffects from'./app/shared/components/stream/store/effect'
+import * as authEffects from './app/auth/store/effect';
+import * as streamEffects from './app/shared/components/stream/store/effect';
 import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { authInterceptor } from './app/shared/services/authInterceptor';
-import { streamFeatureKey, streamReducer } from './app/shared/components/stream/store/reducer';
+import {
+  streamFeatureKey,
+  streamReducer,
+} from './app/shared/components/stream/store/reducer';
 // import { PopularTagsEffects } from ./app/shared/components/populartags/store/effects';
-import * as PopularTagsEffects from './app/shared/components/populartags/store/effects'
-import * as addToFavoritesEffects from './app/shared/components/addToFavourites/add-to-favourites/store/effects'
+import * as PopularTagsEffects from './app/shared/components/populartags/store/effects';
+import * as addToFavoritesEffects from './app/shared/components/addToFavourites/add-to-favourites/store/effects';
 import { AddtoFavoritesService } from './app/shared/components/addToFavourites/service/addto-favorites.service';
-import { PopularTagsFeatureKey, popularTagsReducer } from './app/shared/components/populartags/store/reducer';
+import {
+  PopularTagsFeatureKey,
+  popularTagsReducer,
+} from './app/shared/components/populartags/store/reducer';
+import {
+  createCommentEffects,
+  deleteCommentEffects,
+  getCommentsEffects,
+} from './app/shared/components/comments copy/store/effects';
+import {
+  commentFeatureKey,
+  commentReducer,
+} from './app/shared/components/comments copy/store/reducer';
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouterStore(),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideRouter(appRoutes),
     provideStore({
-      router:routerReducer
+      router: routerReducer,
     }),
-    provideEffects(PopularTagsEffects,authEffects,streamEffects,addToFavoritesEffects),
+    provideEffects(
+      PopularTagsEffects,
+      authEffects,
+      streamEffects,
+      addToFavoritesEffects,
+      { createCommentEffects, getCommentsEffects, deleteCommentEffects }
+    ),
     provideState(authFeatureKey, authReducer),
-    provideState(streamFeatureKey,streamReducer),
-    provideState(PopularTagsFeatureKey,popularTagsReducer),
+    provideState(commentFeatureKey, commentReducer),
+    provideState(streamFeatureKey, streamReducer),
+    provideState(PopularTagsFeatureKey, popularTagsReducer),
     provideStoreDevtools({
-        maxAge: 25,
-        logOnly: !isDevMode(),
-        autoPause: true,
-        trace: false,
-        traceLimit: 75,
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      autoPause: true,
+      trace: false,
+      traceLimit: 75,
     }),
     AddtoFavoritesService,
-    provideEffects()
-],
+    provideEffects(),
+  ],
 });

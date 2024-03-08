@@ -15,19 +15,21 @@ import {
 } from '../store/reducer';
 import { selectCurrentUser } from 'src/app/auth/store/reducer';
 import { CurrentUserInterface } from 'src/app/shared/types/currentUser.interface';
+import { CommentComponent } from '../../shared/components/comments copy/component/comment/comment.component';
 
 @Component({
   selector: 'mc-article',
   standalone: true,
+  templateUrl: './article.component.html',
+  styleUrl: './article.component.css',
   imports: [
     CommonModule,
     RouterLink,
     LoadingComponent,
     TagListComponent,
     ErrorMessage,
+    CommentComponent,
   ],
-  templateUrl: './article.component.html',
-  styleUrl: './article.component.css',
 })
 export class ArticleComponent implements OnInit {
   articlesData: string = '';
@@ -53,7 +55,7 @@ export class ArticleComponent implements OnInit {
     isLoading: this.store.select(selectIsLoading),
     error: this.store.select(selectError),
     article: this.store.select(selectArticleData),
-    isAuthor: this.isAuthor$
+    isAuthor: this.isAuthor$,
   });
   constructor(private route: ActivatedRoute, private store: Store) {}
   ngOnInit(): void {
@@ -63,7 +65,9 @@ export class ArticleComponent implements OnInit {
     this.store.dispatch(articleActions.getArticle({ slug: this.articlesData }));
     this.data$.subscribe((data) => console.log(data.article));
   }
-  deleteArticle(){
-    this.store.dispatch(articleActions.deleteArticle({slug:this.articlesData}))
+  deleteArticle() {
+    this.store.dispatch(
+      articleActions.deleteArticle({ slug: this.articlesData })
+    );
   }
 }
