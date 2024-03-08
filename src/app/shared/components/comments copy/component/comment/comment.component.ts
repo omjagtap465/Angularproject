@@ -20,7 +20,10 @@ import { CommonModule, NgFor, NgForOf } from '@angular/common';
 import { Observable, combineLatest, map } from 'rxjs';
 import { CommentResponseInterface } from '../../types/commentResponse.interface';
 import { LoadingComponent } from '../../../loading/loading.component';
-// import { ToastModule } from 'primeng/toast
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { PrimeNGConfig } from 'primeng/api';
+
 // import { BrowserModule } from '@angular/platform-browser'
 @Component({
   selector: 'mc-comment',
@@ -33,7 +36,9 @@ import { LoadingComponent } from '../../../loading/loading.component';
     NgFor,
     NgForOf,
     LoadingComponent,
+    ToastModule,
   ],
+  providers: [MessageService],
 })
 export class CommentComponent implements OnInit {
   form = this.fb.nonNullable.group({
@@ -55,7 +60,8 @@ export class CommentComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private store: Store,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private primengConfig: PrimeNGConfig
   ) {}
   commentArray: CommentResponseInterface[] = [];
   Comment = inject(CommentService);
@@ -75,6 +81,7 @@ export class CommentComponent implements OnInit {
   }
   ngOnInit() {
     console.log('Comments');
+    this.primengConfig.ripple = true;
 
     this.store.dispatch(createCommentActions.getComment({ slug: this.slug }));
 
